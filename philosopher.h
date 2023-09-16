@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chiwon <chiwon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cahn <cahn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 14:44:25 by chiwon            #+#    #+#             */
-/*   Updated: 2023/09/02 22:32:23 by chiwon           ###   ########.fr       */
+/*   Updated: 2023/09/16 15:50:26 by cahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,28 @@
 # include <sys/time.h>
 # include <pthread.h>
 # include <stdio.h>
-
-typedef struct s_mutex
-{
-    pthread_mutex_t *forks;
-    pthread_mutex_t lock;
-    pthread_mutex_t write;
-}   t_mutex;
+# include <string.h>
 
 typedef struct s_philo
 {
-    int tmp;
+    pthread_mutex_t *lfork;
+    pthread_mutex_t *rfork;
+    struct timeval  last_eat;
+    long long       eat_cnt;
+    long long       id;
 }   t_philo;
 
 typedef struct s_base
 {
-    long long   num_of_philo;
-    long long   time_to_die;
-    long long   time_to_eat;
-    long long   time_to_sleep;
-    long long   min_eat_cnt;
-    t_mutex     mutex;
-    pthread_t   *tid;
+    long long       num_of_philo;
+    long long       time_to_die;
+    long long       time_to_eat;
+    long long       time_to_sleep;
+    long long       min_eat_cnt;
+    struct timeval  start;
+    pthread_mutex_t *forks;
+    pthread_t       *tid;
+    t_philo         *philo;
 }   t_base;
 
 int argument_parsing(int argc, char **argv, t_base *philo);

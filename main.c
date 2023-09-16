@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chiwon <chiwon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cahn <cahn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 14:44:07 by chiwon            #+#    #+#             */
-/*   Updated: 2023/09/02 22:29:24 by chiwon           ###   ########.fr       */
+/*   Updated: 2023/09/16 15:07:26 by cahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int main(int argc, char **argv)
 {
     t_base      data;
-    pthread_t   thread;
 
     if (!argument_parsing(argc, argv, &data))
         return (0);
