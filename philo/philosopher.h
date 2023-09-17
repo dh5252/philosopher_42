@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cahn <cahn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: chiwon <chiwon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 14:44:25 by chiwon            #+#    #+#             */
-/*   Updated: 2023/09/16 22:42:21 by cahn             ###   ########.fr       */
+/*   Updated: 2023/09/17 18:27:34 by chiwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ typedef struct s_base
     long long       time_to_sleep;
     long long       min_eat_cnt;
     long long       complete_eat_cnt;
-    pthread_mutex_t complete_flag;
-    long long       exclude_id;
     int             dead;
+    long long       exclude_id;
+    pthread_mutex_t complete_flag;
     pthread_mutex_t dead_flag;
+    pthread_mutex_t exclude_flag;
     struct timeval  start;
     pthread_mutex_t *forks;
     pthread_t       *tid;

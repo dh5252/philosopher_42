@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utility.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cahn <cahn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: chiwon <chiwon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 15:29:33 by chiwon            #+#    #+#             */
-/*   Updated: 2023/09/16 22:53:57 by cahn             ###   ########.fr       */
+/*   Updated: 2023/09/17 18:28:09 by chiwon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	destroy_mutex(t_base *base)
 		pthread_mutex_destroy(&base->forks[i]);
 		++i;
 	}
+	pthread_mutex_destroy(&base->exclude_flag);
 	pthread_mutex_destroy(&base->dead_flag);
 	pthread_mutex_destroy(&base->complete_flag);
 }
