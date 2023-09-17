@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utility.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chiwon <chiwon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cahn <cahn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 15:29:33 by chiwon            #+#    #+#             */
-/*   Updated: 2023/09/17 18:28:09 by chiwon           ###   ########.fr       */
+/*   Updated: 2023/09/18 02:26:22 by cahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	ft_atol(const char *str)
 {
-	int	        minus;
-	int	        i;
-	long long   num;
+	int			minus;
+	int			i;
+	long long	num;
 
 	i = 0;
 	minus = 1;
@@ -40,7 +40,7 @@ int	ft_atol(const char *str)
 
 long long	get_millisec(struct timeval start)
 {
-	struct timeval  end;
+	struct timeval	end;
 
 	gettimeofday(&end, NULL);
 	return ((end.tv_sec - start.tv_sec) * 1000 + \
@@ -55,15 +55,15 @@ int	print_state(long long time, long long id, char *message, t_base *base)
 		pthread_mutex_unlock(&base->dead_flag);
 		return (0);
 	}
-	pthread_mutex_unlock(&base->dead_flag);
 	printf("%lld %lld %s\n", time, id, message);
+	pthread_mutex_unlock(&base->dead_flag);
 	return (1);
 }
 
 void	mysleep(long long millisec)
 {
 	long long		cur;
-	struct timeval 	cur_t;
+	struct timeval	cur_t;
 
 	cur = 0;
 	gettimeofday(&cur_t, NULL);
@@ -82,9 +82,10 @@ void	destroy_mutex(t_base *base)
 	while (i < base->num_of_philo)
 	{
 		pthread_mutex_destroy(&base->forks[i]);
+		pthread_mutex_destroy(&base->philo[i].last_eat_flag);
 		++i;
 	}
-	pthread_mutex_destroy(&base->exclude_flag);
 	pthread_mutex_destroy(&base->dead_flag);
 	pthread_mutex_destroy(&base->complete_flag);
+	pthread_mutex_destroy(&base->finish_flag);
 }
