@@ -6,7 +6,7 @@
 /*   By: cahn <cahn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 15:29:33 by chiwon            #+#    #+#             */
-/*   Updated: 2023/09/18 02:26:22 by cahn             ###   ########.fr       */
+/*   Updated: 2023/09/24 01:05:43 by cahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,17 @@ long long	get_millisec(struct timeval start)
 			(end.tv_usec - start.tv_usec) / 1000);
 }
 
-int	print_state(long long time, long long id, char *message, t_base *base)
+int	print_state_with_finish(long long time, long long id, \
+						char *message, t_base *base)
 {
-	pthread_mutex_lock(&base->dead_flag);
-	if (base->dead)
+	pthread_mutex_lock(&base->finish_flag);
+	if (base->finish)
 	{
-		pthread_mutex_unlock(&base->dead_flag);
+		pthread_mutex_unlock(&base->finish_flag);
 		return (0);
 	}
 	printf("%lld %lld %s\n", time, id, message);
-	pthread_mutex_unlock(&base->dead_flag);
+	pthread_mutex_unlock(&base->finish_flag);
 	return (1);
 }
 
@@ -85,7 +86,7 @@ void	destroy_mutex(t_base *base)
 		pthread_mutex_destroy(&base->philo[i].last_eat_flag);
 		++i;
 	}
-	pthread_mutex_destroy(&base->dead_flag);
+	pthread_mutex_destroy(&base->finish2_flag);
 	pthread_mutex_destroy(&base->complete_flag);
 	pthread_mutex_destroy(&base->finish_flag);
 }

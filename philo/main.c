@@ -6,13 +6,13 @@
 /*   By: cahn <cahn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 14:44:07 by chiwon            #+#    #+#             */
-/*   Updated: 2023/09/18 02:49:18 by cahn             ###   ########.fr       */
+/*   Updated: 2023/09/24 01:12:52 by cahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-int	check_dead(t_base *base)
+int	check_finish(t_base *base)
 {
 	long long	save;
 	int			i;
@@ -27,9 +27,9 @@ int	check_dead(t_base *base)
 			save = get_millisec(base->start);
 			pthread_mutex_lock(&base->finish_flag);
 			base->finish = 1;
-			base->dead = 1;
+			base->finish2 = 1;
 			pthread_mutex_unlock(&base->finish_flag);
-			pthread_mutex_unlock(&base->dead_flag);
+			pthread_mutex_unlock(&base->finish2_flag);
 			printf("%lld %lld died\n", save, \
 			base->philo[i].id + 1);
 			return (0);
@@ -51,12 +51,17 @@ void	monitoring(t_base *base)
 			return ;
 		}
 		pthread_mutex_unlock(&base->complete_flag);
-		pthread_mutex_lock(&base->dead_flag);
-		if (!check_dead(base))
+		pthread_mutex_lock(&base->finish2_flag);
+		if (!check_finish(base))
 			return ;
-		pthread_mutex_unlock(&base->dead_flag);
+		pthread_mutex_unlock(&base->finish2_flag);
 		usleep(1000);
 	}
+}
+
+void asd()
+{
+	system("leaks philo");
 }
 
 int	main(int argc, char **argv)
@@ -66,4 +71,11 @@ int	main(int argc, char **argv)
 	if (!argument_parsing(argc, argv, &data))
 		return (0);
 	start_routine(&data);
+	if (data.philo != NULL)
+		free(data.philo);
+	if (data.tid != NULL)
+		free(data.tid);
+	if (data.forks != NULL)
+		free(data.forks);
+	atexit(asd);
 }

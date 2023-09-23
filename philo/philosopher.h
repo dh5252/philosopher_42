@@ -6,7 +6,7 @@
 /*   By: cahn <cahn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 14:44:25 by chiwon            #+#    #+#             */
-/*   Updated: 2023/09/18 02:54:33 by cahn             ###   ########.fr       */
+/*   Updated: 2023/09/24 00:55:54 by cahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ typedef struct s_base
 	long long		time_to_sleep;
 	long long		min_eat_cnt;
 	long long		complete_eat_cnt;
-	int				dead;
+	int				finish2;
 	int				finish;
 	pthread_mutex_t	complete_flag;
-	pthread_mutex_t	dead_flag;
+	pthread_mutex_t	finish2_flag;
 	pthread_mutex_t	finish_flag;
 	struct timeval	start;
 	pthread_mutex_t	*forks;
@@ -52,7 +52,7 @@ typedef struct s_base
 
 int			argument_parsing(int argc, char **argv, t_base *philo);
 int			ft_atol(const char *str);
-int			print_state(long long time, long long id, \
+int			print_state_with_finish(long long time, long long id, \
 			char *message, t_base *base);
 long long	get_millisec(struct timeval start);
 void		start_routine(t_base *base);
@@ -61,5 +61,7 @@ void		destroy_mutex(t_base *base);
 void		*scheduling(void *argv);
 void		monitoring(t_base *base);
 int			fork_controll(t_base *base, t_philo *philo);
+int			sleeping(t_base *base, t_philo *philo);
+int			eating(t_base *base, t_philo *philo);
 
 #endif
