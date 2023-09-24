@@ -6,7 +6,7 @@
 /*   By: cahn <cahn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:24:00 by cahn              #+#    #+#             */
-/*   Updated: 2023/09/24 15:02:13 by cahn             ###   ########.fr       */
+/*   Updated: 2023/09/24 15:07:50 by cahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	eating(t_base *base, t_philo *philo)
 		pthread_mutex_unlock(&base->finish2_flag);
 		return (0);
 	}
-	printf("%lld %lld is eating\n", get_millisec(base->start), philo->id + 1);
 	philo->eat_cnt--;
 	if (philo->eat_cnt == 0)
 	{
@@ -58,10 +57,13 @@ int	eating(t_base *base, t_philo *philo)
 		if (base->complete_eat_cnt == base->num_of_philo)
 		{
 			update_finish(base);
+			printf("%lld %lld is eating\n", get_millisec(base->start), \
+				philo->id + 1);
 			return (0);
 		}
 		pthread_mutex_unlock(&base->complete_flag);
 	}
+	printf("%lld %lld is eating\n", get_millisec(base->start), philo->id + 1);
 	pthread_mutex_unlock(&base->finish2_flag);
 	update_eat_and_fork(base, philo);
 	return (1);
