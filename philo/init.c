@@ -6,7 +6,7 @@
 /*   By: cahn <cahn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 21:54:01 by chiwon            #+#    #+#             */
-/*   Updated: 2023/09/24 00:04:05 by cahn             ###   ########.fr       */
+/*   Updated: 2023/09/24 14:43:33 by cahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ int	arguments_valid(int argc, char **argv)
 
 int	allocate_datas(t_base *base)
 {
+	base->forks = NULL;
+	base->tid = NULL;
+	base->philo = NULL;
 	base->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * \
 				base->num_of_philo);
 	if (!base->forks)

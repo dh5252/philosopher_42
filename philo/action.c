@@ -6,7 +6,7 @@
 /*   By: cahn <cahn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:24:00 by cahn              #+#    #+#             */
-/*   Updated: 2023/09/24 01:06:14 by cahn             ###   ########.fr       */
+/*   Updated: 2023/09/24 15:02:13 by cahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,20 @@ void	update_eat_and_fork(t_base *base, t_philo *philo)
 
 void	update_finish(t_base *base)
 {
-	base->finish = 1;
-	pthread_mutex_lock(&base->finish2_flag);
 	base->finish2 = 1;
-	pthread_mutex_unlock(&base->finish2_flag);
-	pthread_mutex_unlock(&base->complete_flag);
+	pthread_mutex_lock(&base->finish_flag);
+	base->finish = 1;
 	pthread_mutex_unlock(&base->finish_flag);
+	pthread_mutex_unlock(&base->complete_flag);
+	pthread_mutex_unlock(&base->finish2_flag);
 }
 
 int	eating(t_base *base, t_philo *philo)
 {
-	pthread_mutex_lock(&base->finish_flag);
-	if (base->finish)
+	pthread_mutex_lock(&base->finish2_flag);
+	if (base->finish2)
 	{
-		pthread_mutex_unlock(&base->finish_flag);
+		pthread_mutex_unlock(&base->finish2_flag);
 		return (0);
 	}
 	printf("%lld %lld is eating\n", get_millisec(base->start), philo->id + 1);
@@ -62,7 +62,7 @@ int	eating(t_base *base, t_philo *philo)
 		}
 		pthread_mutex_unlock(&base->complete_flag);
 	}
-	pthread_mutex_unlock(&base->finish_flag);
+	pthread_mutex_unlock(&base->finish2_flag);
 	update_eat_and_fork(base, philo);
 	return (1);
 }

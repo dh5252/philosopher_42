@@ -6,7 +6,7 @@
 /*   By: cahn <cahn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 14:44:07 by chiwon            #+#    #+#             */
-/*   Updated: 2023/09/24 01:12:52 by cahn             ###   ########.fr       */
+/*   Updated: 2023/09/24 14:42:38 by cahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,6 @@ void	monitoring(t_base *base)
 	}
 }
 
-void asd()
-{
-	system("leaks philo");
-}
-
 int	main(int argc, char **argv)
 {
 	t_base	data;
@@ -77,5 +72,4 @@ int	main(int argc, char **argv)
 		free(data.tid);
 	if (data.forks != NULL)
 		free(data.forks);
-	atexit(asd);
 }

@@ -6,7 +6,7 @@
 /*   By: cahn <cahn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:06:56 by cahn              #+#    #+#             */
-/*   Updated: 2023/09/24 00:57:16 by cahn             ###   ########.fr       */
+/*   Updated: 2023/09/24 14:55:56 by cahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,8 @@ void	*scheduling(void *argv)
 
 	if (!preprocessing(&base, &philo, argv))
 		return (0);
-	while (1)
+	while (routine(base, philo))
 	{
-		pthread_mutex_lock(&base->finish2_flag);
-		if (base->finish2)
-		{
-			pthread_mutex_unlock(&base->finish2_flag);
-			break ;
-		}
-		pthread_mutex_unlock(&base->finish2_flag);
-		if (!routine(base, philo))
-			break ;
 	}
 	return (0);
 }
